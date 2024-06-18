@@ -3,8 +3,8 @@ import DashHeader from '../components/DashHeader'
 const DashLayout = () => {
   return (
     <>
-      <DashHeader />
-      <div className='w-full h-full'>
+      <DashHeader className='w-full' />
+      <div className=' mt-20'>
         <Outlet />
       </div>
     </>
