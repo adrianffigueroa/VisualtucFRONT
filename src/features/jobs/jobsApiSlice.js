@@ -13,7 +13,6 @@ export const jobsApiSlice = apiSlice.injectEndpoints({
       validateStatus: (response, result) => {
         return response.status === 200 && !result.isError
       },
-      keepUnusedDataFor: 5,
       transformResponse: (responseData) => {
         const loadedJobs = responseData.map((job) => {
           job.id = job._id

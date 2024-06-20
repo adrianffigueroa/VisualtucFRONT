@@ -13,6 +13,7 @@ import NewJob from './features/jobs/NewJob'
 import EditJob from './features/jobs/EditJob'
 import NewClientForm from './features/clients/NewClientForm'
 import EditClient from './features/clients/EditClient'
+import Prefetch from './features/auth/Prefetch'
 
 function App() {
   return (
@@ -21,22 +22,24 @@ function App() {
       <Route index element={<Public />} />
       <Route path='login' element={<Login />} />
 
-      <Route path='dash' element={<DashLayout />}>
-        <Route index element={<Welcome />} />
-        <Route path='jobs'>
-          <Route index element={<JobsList />} />
-          <Route path='new' element={<NewJob />} />
-          <Route path=':id' element={<EditJob />} />
-        </Route>
-        <Route path='clients'>
-          <Route index element={<ClientsList />} />
-          <Route path='new' element={<NewClientForm />} />
-          <Route path=':id' element={<EditClient />} />
-        </Route>
-        <Route path='users'>
-          <Route index element={<UsersList />} />
-          <Route path='new' element={<NewUserForm />} />
-          <Route path=':id' element={<EditUser />} />
+      <Route element={<Prefetch />}>
+        <Route path='dash' element={<DashLayout />}>
+          <Route index element={<Welcome />} />
+          <Route path='jobs'>
+            <Route index element={<JobsList />} />
+            <Route path='new' element={<NewJob />} />
+            <Route path=':id' element={<EditJob />} />
+          </Route>
+          <Route path='clients'>
+            <Route index element={<ClientsList />} />
+            <Route path='new' element={<NewClientForm />} />
+            <Route path=':id' element={<EditClient />} />
+          </Route>
+          <Route path='users'>
+            <Route index element={<UsersList />} />
+            <Route path='new' element={<NewUserForm />} />
+            <Route path=':id' element={<EditUser />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

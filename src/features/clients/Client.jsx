@@ -1,8 +1,8 @@
 ﻿/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { selectUserById } from './usersApiSlice'
-import { useDeleteUserMutation } from './usersApiSlice'
+import { selectClientById } from './clientsApiSlice'
+import { useDeleteClientMutation } from './clientsApiSlice'
 import { useNavigate } from 'react-router-dom'
 import { TableRow, TableCell } from '@/components/ui/table'
 import {
@@ -13,20 +13,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import DeleteUserAlert from './DeleteUserAlert'
+//import DeleteClientAlert from './DeleteClientAlert'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 
-const User = ({ userID }) => {
+const Client = ({ clientID }) => {
   const { toast } = useToast()
   const navigate = useNavigate()
-  const user = useSelector((state) => selectUserById(state, userID))
-  const [deleteUser, { isSuccess, isError, error }] = useDeleteUserMutation()
+  const client = useSelector((state) => selectClientById(state, clientID))
+  const [deleteClient, { isSuccess, isError, error }] = useDeleteClientMutation()
   const [open, setOpen] = useState(false)
 
-  const handleDeleteUser = async (userID) => {
-    await deleteUser({ id: userID })
+  const handleDeleteClient = async (clientID) => {
+    await deleteClient({ id: clientID })
     if (isError) {
       toast({
         title: 'Error',
@@ -47,14 +47,14 @@ const User = ({ userID }) => {
     }
   }, [isSuccess, toast])
 
-  if (user) {
+  if (client) {
     return (
       <>
         <TableRow>
-          <TableCell>{user.username}</TableCell>
-          <TableCell>{user.role}</TableCell>
-          <TableCell>{user.email}</TableCell>
-          <TableCell>{user.active ? 'Activo' : 'Inactivo'}</TableCell>
+          <TableCell>{client.clientname}</TableCell>
+          <TableCell>{client.role}</TableCell>
+          <TableCell>{client.email}</TableCell>
+          <TableCell>{client.active ? 'Activo' : 'Inactivo'}</TableCell>
           <TableCell className='text-right'>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -65,7 +65,7 @@ const User = ({ userID }) => {
               <DropdownMenuContent>
                 <DropdownMenuItem
                   onClick={() => {
-                    navigate(`/dash/users/${userID}`)
+                    navigate(`/dash/clients/${clientID}`)
                   }}
                 >
                   <DropdownMenuLabel>Editar</DropdownMenuLabel>
@@ -78,10 +78,10 @@ const User = ({ userID }) => {
             </DropdownMenu>
           </TableCell>
         </TableRow>
-        <DeleteUserAlert open={open} setOpen={setOpen} onConfirm={() => handleDeleteUser(userID)} />
+        <DeleteClientAlert open={open} setOpen={setOpen} onConfirm={() => handleDeleteClient(clientID)} />
       </>
     )
   } else return null
 }
 
-export default User
+export default Client
